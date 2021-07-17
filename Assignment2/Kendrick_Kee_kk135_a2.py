@@ -94,26 +94,32 @@ def question_3():
 
 
 def question_4():
-    #====insert solution here===#
-    state = True#status flag for ending the loop
+  #====insert solution here===#
+  state = True#status flag for ending the loop
 
-    finalString = ""
-    while(state):#loop until a blank line is detected
-        x = input("Filename?")
-        while(x.find('[') >= 0 or x.find(']') >= 0):#loops until the string no longer has any brackets
-            start = x.find('[')#find the index of the opening bracket
-            stop = x.find(']')#find the index of the closing bracket
-            x = x[0: start:] + x[stop + 1::]#remove everything inbetween the opening and the closing bracket
-
-        
-        finalString += x#append to the cleaned string to the final string output 
-        if(x == ""):#when a blankline is detected change state to false ending the loop
-            state = False
-            finalString = finalString[:-1]#delete the last trailing comma
-        else:
-            finalString += ","#append a trailing comma if it was a valid input
-            
-    print(finalString)
+  finalString = ""
+  while(state):#loop until a blank line is detected
+    x = input("Filename?")
+    temp = ""
+    skip = 0
+    for i in x:
+      if i == '[':
+        skip += 1
+      elif i == ']' and skip > 0:
+        skip -= 1
+      elif skip == 0:
+        temp += i
+    skip = 0
+    x = removeNestedParentheses(x)
+    print(temp)
+    finalString += x#append to the cleaned string to the final string output 
+    if(x == ""):#when a blankline is detected change state to false ending the loop
+        state = False
+        finalString = finalString[:-1]#delete the last trailing comma
+    else:
+        finalString += ","#append a trailing comma if it was a valid input
+          
+  print(finalString)
 
 
 def main():  # do not change this line
@@ -122,8 +128,8 @@ def main():  # do not change this line
     #     YOU DO NOT HAVE TO LEAVE IT UNCOMMENTED DURING SUBMISSION.
     # question_1()
     # question_2()
-    question_3()
-    # question_4()
+    # question_3()
+    question_4()
 
 
 if __name__ == '__main__':  # do not change this line
