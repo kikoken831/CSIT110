@@ -95,30 +95,25 @@ def question_3():
 
 def question_4():
   #====insert solution here===#
-  state = True#status flag for ending the loop
-
   finalString = ""
-  while(state):#loop until a blank line is detected
+  while(True):#loop until a blank line is detected
     x = input("Filename?")
-    temp = ""
-    skip = 0
+    if(x == ""):#when a blankline is detected break out of loop
+        finalString = finalString[:-1]#delete the last trailing comma 
+        break
+    flag = 0#set a flag, when flag is 0, store the char as it is not nested
     for i in x:
-      if i == '[':
-        skip += 1
-      elif i == ']' and skip > 0:
-        skip -= 1
-      elif skip == 0:
-        temp += i
-    skip = 0
-    x = removeNestedParentheses(x)
-    print(temp)
-    finalString += x#append to the cleaned string to the final string output 
-    if(x == ""):#when a blankline is detected change state to false ending the loop
-        state = False
-        finalString = finalString[:-1]#delete the last trailing comma
-    else:
-        finalString += ","#append a trailing comma if it was a valid input
-          
+      if i == '[':#if its an opening bracket, set flag to 1 so as no to read any chars till a closing bracket is found
+        flag += 1
+      elif i == ']' and flag > 0:#if a closing brace is found AND flag is 1 or more(nesting) reduce the flag by 1
+        flag -= 1
+      elif flag == 0:#if flag is 0, all nests are closed, store the char in the placeholder
+        finalString += i #append to the cleaned string to the final string output
+    flag = 0
+
+    finalString += ","#append a trailing comma if it was a valid input
+
+         
   print(finalString)
 
 
