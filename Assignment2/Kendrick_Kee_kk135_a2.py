@@ -58,33 +58,36 @@ def question_2():
 def question_3():
     # ====insert solution here===#]
     total_int = 0.0
-    age = int(input("Enter current age: "))
-    oa = float(input("Enter current amount in OA: "))
-    sa = float(input("Enter current amount in SA: "))
-    ma = float(input("Enter current amount in MA: "))
+    age = int(input("Enter current age: "))#store age
+    oa = float(input("Enter current amount in OA: "))#store OA
+    sa = float(input("Enter current amount in SA: "))#store SA
+    ma = float(input("Enter current amount in MA: "))#store MA
+    #get basic interest for OA,SA,MA
     total_int += oa*0.025
     total_int += sa * 0.04
     total_int += ma * 0.04
+    #check if age is above or equal 55
     if(age >= 55):
-        ra = float(input("Enter current amount in RA: "))
-        total_int += ra*0.04
-        if(oa > 20000):
+        ra = float(input("Enter current amount in RA: "))#prompt for RA when user is older than 55
+        total_int += ra*0.04#store RA
+        if(oa > 20000):#normalize OA to 20000 as extra interest calculations for OA is capped at 20000
             oa = 20000
-        total_sum = oa+sa+ma+ra
-        if(total_sum >= 30000):
-            total_int += 600
-            total_sum -= 30000
-            if(total_sum >= 30000):
-                total_int += 300
-                total_sum -= 30000
-        total_int += total_sum*0.01
-    else:
-        if(oa > 20000):
-            oa = 20000
-        total_sum = oa+sa+ma
-        if(total_sum >= 60000):
-            total_int += 600
+        total_sum = oa+sa+ma+ra#get the total sum for extra interest computation with normalized OA
+        if(total_sum >= 60000):#if total sum is >= 60k offer maximum interest of $900
+            total_int += 900
+        elif(total_sum >= 30000):#if total sum is >= 30k but not >60k
+            total_int += 600#offer the 2% interest on the first 30k and 1% on the remainder amount
+            total_int += ((total_sum%30000)*0.01)#get 1% of the remainder of the total sum
         else:
+            total_int += (total_sum*0.02)
+            
+    else:#if age is below 55
+        if(oa > 20000):#normalize the OA as its also capped at 20k
+            oa = 20000
+        total_sum = oa+sa+ma#get total sum
+        if(total_sum >= 60000):#if total sum > 60k give maximum interest of $600
+            total_int += 600
+        else:#else give 1% on whatever is left
             total_int += total_sum*0.01
 
     print(f'Your interest rate this year will be ${total_int:.2f}')
@@ -119,8 +122,8 @@ def main():  # do not change this line
     #     YOU DO NOT HAVE TO LEAVE IT UNCOMMENTED DURING SUBMISSION.
     # question_1()
     # question_2()
-    # question_3()
-    question_4()
+    question_3()
+    # question_4()
 
 
 if __name__ == '__main__':  # do not change this line
