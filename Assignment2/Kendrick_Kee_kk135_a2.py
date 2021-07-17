@@ -6,13 +6,14 @@ subject_code = 'CSIT110'
 def question_1():
     #====insert solution here===#
     # Get imputs
-    prompt1 = input("prompt1")
-    prompt2 = input("prompt2")
-    prompt3 = int(input("prompt3"))
+    prompt1 = input("prompt1 ")
+    prompt2 = input("prompt2 ")
+    prompt3 = int(input("prompt3 "))
     # loop x number or times, x being the int value of (prompt3)
     for i in range(prompt3):
         print(prompt1, end='')  # print prompt1 without newLine
         print(prompt2, end='')  # print prompt2 without newLine
+    print()
 
 
 def question_2():
@@ -25,14 +26,14 @@ def question_2():
     sum = 0
     # go forwards
     print("Go forward: ", end='')
-    while(i <= upperB):
+    while(i <= upperB):#loop so long as counter is not above the upper bound
         print(str(i), end="")
-        sum = sum + i
-        i = i+gap
-        if(i <= upperB):
+        sum = sum + i#get the sum
+        i = i+gap#increment counter by gap amount
+        if(i <= upperB):#trailing comma when not end of line
             trailing = ", "
         else:
-            trailing = '.'
+            trailing = '.'#trailing . when end of line
         print(trailing, end='')
     print()
     print("Sum of numbers = " + str(sum))
@@ -40,18 +41,18 @@ def question_2():
     sum = 0
     # go backwards
     print("Go backward: ", end='')
-    while(i > 0):
+    while(i >= 0):#loop so long as counter is greater than 0
         print(str(i), end='')
-        sum = sum + i
-        i = i-gap
-        if(i > 0):
-            trailing = ", "
+        sum = sum + i#get the sum
+        i = i-gap#decrement counter by gap amount
+        if(i > -1):
+            trailing = ", "#trailing with a comma when not end of line
         else:
-            trailing = '.'
+            trailing = '.'#trailing . when end of line
         print(trailing, end='')
     print()
     print("Sum of numbers = " + str(sum))
-    # REMEMBER TO ADD THE COMMAS AND FULLSTOP
+    
 
 
 def question_3():
@@ -91,17 +92,23 @@ def question_3():
 
 def question_4():
     #====insert solution here===#
-    state = True
+    state = True#status flag for ending the loop
 
     finalString = ""
-    while(state):
+    while(state):#loop until a blank line is detected
         x = input("Filename?")
-        finalString += x
-        if(x == ""):
+        while(x.find('[') >= 0 or x.find(']') >= 0):#loops until the string no longer has any brackets
+            start = x.find('[')#find the index of the opening bracket
+            stop = x.find(']')#find the index of the closing bracket
+            x = x[0: start:] + x[stop + 1::]#remove everything inbetween the opening and the closing bracket
+
+        
+        finalString += x#append to the cleaned string to the final string output 
+        if(x == ""):#when a blankline is detected change state to false ending the loop
             state = False
-            finalString = finalString[:-1]
+            finalString = finalString[:-1]#delete the last trailing comma
         else:
-            finalString += ","
+            finalString += ","#append a trailing comma if it was a valid input
             
     print(finalString)
 
@@ -112,8 +119,8 @@ def main():  # do not change this line
     #     YOU DO NOT HAVE TO LEAVE IT UNCOMMENTED DURING SUBMISSION.
     # question_1()
     # question_2()
-    question_3()
-    # question_4()
+    # question_3()
+    question_4()
 
 
 if __name__ == '__main__':  # do not change this line
