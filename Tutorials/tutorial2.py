@@ -147,7 +147,7 @@ def qn10():
     print(f'There are {ncount} negative numbers.')
 
 
-"""   
+
 qn1()
 print()
 qn2()
@@ -167,4 +167,3 @@ print()
 qn9()
 print()
 qn10()
-"""
