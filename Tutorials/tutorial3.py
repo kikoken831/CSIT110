@@ -1,3 +1,4 @@
+
 """
 l1 = [1,2,3,4,1,2,3,4]
 l2 = [1,2,3,4,1,2,3,4,2000]
@@ -116,34 +117,38 @@ def qn10():
                 "phython": 70, "communications": 80}}}}
     print(school["classA"]["student"]["subjects"]["communications"])
 
-#qn10()
+# qn10()
+
 
 def qn11():
     sampleDict = {
         "name": "Kelly",
-         "interest": "badminton",
-         "age": 32,
-         "town": "Ang Mo Kio" }
+        "interest": "badminton",
+        "age": 32,
+        "town": "Ang Mo Kio"}
 
     sampleDict["district"] = sampleDict.pop("town")
     print(sampleDict)
 
-#qn11()
+# qn11()
+
 
 def qn12():
-    inventory = {'coins' : 500,
-    'pouch' : ['flint', 'twine', 'gemstone'],
-    'haversack' : ['wooden spear', 'dagger', 'fish', 'drumstick']}
-    inventory["equipped"] = ['ruby','red','potion','apple']
+    inventory = {'coins': 500,
+                 'pouch': ['flint', 'twine', 'gemstone'],
+                 'haversack': ['wooden spear', 'dagger', 'fish', 'drumstick']}
+    inventory["equipped"] = ['ruby', 'red', 'potion', 'apple']
     inventory["haversack"].sort()
     inventory["haversack"].remove('dagger')
     inventory['coins'] += 50
     print(inventory)
-#qn12()
+# qn12()
+
 
 def qn13():
-    stock = {"sunblock" :25,"swimming cap": 2,"ear plugs": 4,"goggles": 15}
-    unit_price = {"sunblock": 16,"swimming cap": 10,"ear plugs": 1.5,"goggles": 9.9}
+    stock = {"sunblock": 25, "swimming cap": 2, "ear plugs": 4, "goggles": 15}
+    unit_price = {"sunblock": 16, "swimming cap": 10,
+                  "ear plugs": 1.5, "goggles": 9.9}
     li = []
     for key in stock:
         li.append(key)
@@ -153,32 +158,144 @@ def qn13():
         sum += stock[x] * unit_price[x]
     sum += 0.07
     print(f'The total checkout price is {sum:.2f}')
-#qn13()
+# qn13()
 
-def triple(x:str):
+
+def triple(x: str):
     result = ''
     for i in x:
         result += i*3
-    return result    
+    return result
 
 #print(triple("little fish"))
 
 
-def next_number(x:int):
-    if(x%2 == 0):
-        x = 3*x + 1
+def next_number(x: int):
+    if(x % 2 == 0):
+        return 3*x + 1
     else:
-        x = 2*x + 2
-    return x
+        return 2*x + 2
 
-#print(next_number(2))
 
-def qn3():
-    x = int(input("How many Fibonacci numbers to generate? "))
-    li = [0, 1]
+# print(next_number(2))
 
-    for i in range(2, x):
+def qn17():
+    x = int(input("Enter the initial number: "))
+    count = 0
+    print("Sequence: ")
+    while(x <= 1000000):
+        print(f"Step{count:>3}: {x}")
+        x = next_number(x)
+        count += 1
 
-        li.append(li[i-1]+li[i-2])
+# qn17()
 
-    print("Here is a list of generated Fibonacci numbers: ", li)
+
+# qn3()
+
+def filter_digit(data):
+    itmp = ""
+    sum = 0
+    for x in data:
+        if type(x) == int:
+            itmp += str(x)
+
+    for x in itmp:
+        sum += int(x)
+
+    return itmp, sum
+
+
+li = [0, "egg", 1, "egg", 5, "cat", 77]
+# print(filter_digit(li))
+
+
+def compute_hypothenuse(p1: float, p2: float) -> float:
+    return ((p1*p1) + (p2*p2))**0.5
+
+
+def get_area_of_circle(p1: float = 1.0):
+    from math import pi
+    return (p1*p1)*pi
+
+# print(get_area_of_circle())
+
+
+def get_volume_of_cylinder(p1: float, p2: float = 10.0) -> float:
+    return get_area_of_circle(p1)*p2
+
+
+def is_prime_number(p1: int) -> bool:
+    if p1 > 1:
+        for x in range(2, int(p1/2)+1):
+            if p1 % x == 0:
+                return False
+
+        return True
+    else:
+        return False
+# print(is_prime_number(15))
+
+
+def get_next_prime_number(i: int) -> int:
+    t = i+1
+    while(True):
+        if is_prime_number(t):
+            return t
+        else:
+            t += 1
+
+# print(get_next_prime_number(97))
+
+
+def bin_to_dec(s: str) -> int:
+    sum = 0
+    count = 0
+    for x in range(len(s)-1, -1, -1):
+        sum += int(s[x])*(2**count)
+        count += 1
+
+    return sum
+
+# print(bin_to_dec("01011"))
+
+
+class Employee:
+    fn = ""
+    ln = ""
+    en = ""
+    pos = ""
+    phone = ""
+    def __init__(self, fn, ln, en, pos, phone):
+        self.fn = fn
+        self.ln = ln
+        self.en = en
+        self.pos = pos
+        self.phone = phone
+    def display(self):
+        print(self.fn, self.ln, self.en, self.pos, self.phone)
+    def __str__(self):
+        return f"Employee ({self.en}, {self.fn}, {self.ln}, {self.pos}, {self.phone})"
+    def __repr__(self):
+        return f"Employee ({self.en}, {self.fn}, {self.ln}, {self.pos}, {self.phone})"
+    
+
+
+#e2 = Employee("John", "Smith", "12345678", "Software Engineer", "ext 4567")
+#print(e2)
+
+
+class Pizza:
+    ingredients = []
+    def __init__(self,ingredients: list):
+        self.ingredients = ingredients.copy()
+    def __repr__(self) -> str:
+        output = "Pizza Ingredients: "
+        for x in self.ingredients:
+            output += x + ", "
+        output = output[:-2]
+        return output
+li = ["dough","cheese","sauce","meat","oil"]
+p1 = Pizza(li)
+print(str(p1))
+print(li)
