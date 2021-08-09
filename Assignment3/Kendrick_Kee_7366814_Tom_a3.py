@@ -105,38 +105,48 @@ class ShoppingCart:
 def get_magic_num_checksum(ic_no: str) -> str:
     sum = 0
     magic_dict = {10: "A", 9: "B", 8: "C", 7: "D", 6: "E",
-                  5: "F", 4: "G", 3: "H", 2: "I", 1: "Z", 0: "J"}#dict for corresponding checksums
-    weights = [2, 7, 6, 5, 4, 3, 2]#list of weights
+                  5: "F", 4: "G", 3: "H", 2: "I", 1: "Z", 0: "J"}  # dict for corresponding checksums
+    weights = [2, 7, 6, 5, 4, 3, 2]  # list of weights
     for i in range(7):
-        sum += int(ic_no[i]) * weights[i]#sum the int with the corresponding weight
-    checksum = sum % 11#mod 11 to get checksum int
-    return magic_dict[checksum]#return the Char coressponding to the chcksum
+        # sum the int with the corresponding weight
+        sum += int(ic_no[i]) * weights[i]
+    checksum = sum % 11  # mod 11 to get checksum int
+    return magic_dict[checksum]  # return the Char coressponding to the chcksum
 
 
 def get_car_plate_checksum(car_no: str) -> str:
-    weights = [9, 4, 5, 4, 3, 2]#list of weights
-    checklist: list[int] = []#empty int list for checksum computation
-    splitted = car_no.split()#split the str via whitespace
-    prefix = splitted[0]#str that only consists for the char
-    num_ser = splitted[1]#str the contains the num series
+    weights = [9, 4, 5, 4, 3, 2]  # list of weights
+    checklist: list[int] = []  # empty int list for checksum computation
+    splitted = car_no.split()  # split the str via whitespace
+    # interate through the str and append to prefix if char or num_ser if int
+    prefix = ""
+    num_ser = ""
+    for i in car_no:#Check if char is str type or int type
+        try:
+            int(i)
+            num_ser += i #append to num series if int type
+        except ValueError: #append to prefix as it is a str type
+            prefix += i
+
     checksum = 0
     output = ['A', 'Z', 'Y', 'X', 'U', 'T', 'S', 'R', 'P',
-              'M', 'L', 'K', 'J', 'H', 'G', 'E', 'D', 'C', 'B']#list for possible output with 'A'' = 0 via index
-    if len(prefix) == 3:#if prefix has 3 chars
-        checklist.append(ord(prefix[1])-64)#get int value of the second char ord(x) - 64 gets the alphabetical value where a = 1
-        checklist.append(ord(prefix[2])-64)#get int value of the third char
-    elif len(prefix) == 2:#if prefix has 2 chars
-        #get int value of the first and second char
+              'M', 'L', 'K', 'J', 'H', 'G', 'E', 'D', 'C', 'B']  # list for possible output with 'A'' = 0 via index
+    if len(prefix) == 3:  # if prefix has 3 chars
+        # get int value of the second char ord(x) - 64 gets the alphabetical value where a = 1
+        checklist.append(ord(prefix[1])-64)
+        checklist.append(ord(prefix[2])-64)  # get int value of the third char
+    elif len(prefix) == 2:  # if prefix has 2 chars
+        # get int value of the first and second char
         checklist.append(ord(prefix[0])-64)
         checklist.append(ord(prefix[1])-64)
-    elif len(prefix) == 1:#if prefix has 1 char
-        checklist.append(0)#append 0 at the front of the checklist
-        checklist.append(ord(prefix[0])-64)#get the int value of the char
+    elif len(prefix) == 1:  # if prefix has 1 char
+        checklist.append(0)  # append 0 at the front of the checklist
+        checklist.append(ord(prefix[0])-64)  # get the int value of the char
 
-    if len(num_ser) == 4:#if series has 4 ints
+    if len(num_ser) == 4:  # if series has 4 ints
         for i in num_ser:
-            checklist.append(int(i))#append each int to the checklist
-    elif len(num_ser) == 3:#if series only has 3 or lesser ints append 0 per missing int before appending the ints
+            checklist.append(int(i))  # append each int to the checklist
+    elif len(num_ser) == 3:  # if series only has 3 or lesser ints append 0 per missing int before appending the ints
         checklist.append(0)
         for i in num_ser:
             checklist.append(int(i))
@@ -151,11 +161,11 @@ def get_car_plate_checksum(car_no: str) -> str:
 
     sum = 0
     for i in range(6):
-        sum += int(checklist[i]) * weights[i]#get the checksum total
+        sum += int(checklist[i]) * weights[i]  # get the checksum total
 
-    checksum = sum % 19#mod 19 to get corresponding checksum value
+    checksum = sum % 19  # mod 19 to get corresponding checksum value
 
-    return output[checksum]#output the char based on the list
+    return output[checksum]  # output the char based on the list
 #============end of solution to question 4===============#
 
 
@@ -181,11 +191,11 @@ def main():  # do not change this line
     while True:
         ip = input("Enter IC no: ")
         print(get_magic_num_checksum(ip))
-    """
+    
     while True:
         ip = input("Enter carplate no: ")
         print(get_car_plate_checksum(ip))
-
+    """
 
 if __name__ == '__main__':  # do not change this line
     main()  # do not change this line
