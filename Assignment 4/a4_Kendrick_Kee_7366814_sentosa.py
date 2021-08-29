@@ -29,8 +29,8 @@ class Employee:
                 else:#raise exception as it does not exist
                     raise ProductNotFoundError(self.name, k)
             except ProductNotFoundError as e:
-                print(e)#print error msg of __str__
-                pass#proceed with the next product (PLEASE CHECK IF PROGRAM SHOULD PROCEED OR BREAK)
+                return e#print error msg of __str__
+                #pass#proceed with the next product (PLEASE CHECK IF PROGRAM SHOULD PROCEED OR BREAK)
         return sales#return total sales
 
 #============end of solution to question 1===============#
@@ -73,7 +73,7 @@ class WaterBody:
             else:
                 return cls.RHO * cls.G * depth#else return volume
         except InvalidDepthError as e:
-            print(e)#print error when found
+            return e#print error when found
 
 
 #============end of solution to question 3===============#
@@ -117,7 +117,7 @@ def main():
     print("Assignment4")
     #example()
     """
-    weights ={"product_12":1.0,"product_5":3.0}
+    weights ={"product_1":1.0,"product_51":3.0}
     e2 = Employee.dict_to_class_obj([{ "name": "Rajah Din","sales": {"product_0": 3,"product_2": 5,"product_4": 4,},},{"name": "JafarMin","sales": {"product_1": 1,"product_2": 3,"product_5": 5,},}])
     print(e2[1].get_weighted_sales(weights))
     
